@@ -16,6 +16,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import Footer from "components/Footer/Footer.js";
 import Instructions from "components/Instruction/Instruction.js";
 import Badge from "components/Badge/Badge.js";
+import Popover from "@material-ui/core/Popover";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -43,6 +44,7 @@ import MaterialTable from "material-table";
 
 import tablestyle from "assets/jss/material-kit-pro-react/views/componentsSections/contentAreas.js";
 import peopleStyle from "assets/jss/material-kit-pro-react/views/peopleStyle.js";
+import popoverStyles from "assets/jss/material-kit-pro-react/popoverStyles.js";
 
 import cardBlog4 from "assets/img/different-2.png";
 import noimage from "assets/img/nothing_5.png";
@@ -56,6 +58,7 @@ const moment = require("moment");
 const styles = {
   ...peopleStyle,
   ...tablestyle,
+  ...popoverStyles,
 };
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -75,6 +78,8 @@ const AnomaliesTable = (props) => {
   );
   const [simpleSelect, setSimpleSelect] = React.useState(1);
   const [commentaire, setcommentaire] = useState("");
+
+  const [anchorElBottom, setAnchorElBottom] = React.useState(null);
 
   // React.useEffect(() => {
   //   window.scrollTo(0, 0);
@@ -400,9 +405,37 @@ const AnomaliesTable = (props) => {
                     </GridItem>
                     <GridItem xs={4}>
                       <div className={classes.textCenter}>
-                        <h1>
+                        <h1
+                          onClick={(event) =>
+                            setAnchorElBottom(event.currentTarget)
+                          }
+                        >
                           <b>{details.hracode}</b>
                         </h1>
+                        <Popover
+                          classes={{
+                            paper: classes.popover,
+                          }}
+                          open={Boolean(anchorElBottom)}
+                          anchorEl={anchorElBottom}
+                          onClose={() => setAnchorElBottom(null)}
+                          anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "center",
+                          }}
+                          transformOrigin={{
+                            vertical: "top",
+                            horizontal: "center",
+                          }}
+                        >
+                          <h3 className={classes.popoverHeader}>
+                            Popover on bottom
+                          </h3>
+                          <div className={classes.popoverBody}>
+                            Here will be some very useful information about his
+                            popover.
+                          </div>
+                        </Popover>
                       </div>
                     </GridItem>
                     <GridItem xs={2}>

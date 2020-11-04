@@ -177,6 +177,7 @@ const LoginPage = (props) => {
                       round
                       color="primary"
                       size="lg"
+                      disabled={props.logoutSuccess}
                       // onClick={(e) => {
                       //   LoginHandler(e);
                       // }}
@@ -209,6 +210,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.isAuthenticated,
     firstname: state.auth.firstname,
     lastname: state.auth.lastname,
+    logoutSuccess: state.auth.loading,
   };
 };
 

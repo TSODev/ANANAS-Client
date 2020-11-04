@@ -1,5 +1,6 @@
 // Initialisation
 
+export const MARK_REFRESH_STATE = "MARK_REFRESH_STATE";
 export const INIT_USERS = "INIT_USERS";
 export const INIT_DATAFILES = "INIT_DATAFILES";
 export const INIT_METADATA = "INIT_METADATA";

@@ -3,6 +3,7 @@ import * as actiontypes from "../actions/actionTypes";
 import { updateObject } from "../../utilities/utils";
 
 const initialState = {
+  refresh: true,
   metadata: [
     {
       group: "",
@@ -18,6 +19,7 @@ const initialState = {
     },
   ],
   loading: false,
+  loaded: false,
   error: false,
 };
 
@@ -27,6 +29,7 @@ const initMetadata = (state, action) => {
     loading: false,
     error: false,
     loading: false,
+    loaded: false,
     error: false,
   });
 };
@@ -51,6 +54,7 @@ const loadMetadataSuccess = (state, action) => {
   return updateObject(state, {
     error: null,
     loading: false,
+    loaded: true,
     metadata: action.data.metadata,
   });
 };
@@ -59,6 +63,7 @@ const loadMetadataFail = (state, action) => {
   return updateObject(state, {
     error: action.error,
     loading: false,
+    loaded: false,
   });
 };
 
@@ -110,6 +115,12 @@ const deleteDataFileFail = (state, action) => {
   });
 };
 
+const markRefreshState = (state, action) => {
+  return updateObject(state, {
+    refresh: false,
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actiontypes.INIT_METADATA:
@@ -134,6 +145,8 @@ const reducer = (state = initialState, action) => {
       return deleteDataFileSuccess(state, action);
     case actiontypes.DELETE_DATAFILE_FAIL:
       return deleteDataFileFail(state, action);
+    case actiontypes.MARK_REFRESH_STATE:
+      return markRefreshState(state, action);
     default:
       return state;
   }

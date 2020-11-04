@@ -89,3 +89,15 @@ export const metadataSave = (md) => {
       });
   };
 };
+
+export const setRefreshStateMark = () => {
+  return {
+    type: actions.MARK_REFRESH_STATE,
+  };
+};
+
+export const markRefreshState = () => {
+  return (dispatch) => {
+    dispatch(setRefreshStateMark());
+  };
+};

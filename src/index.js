@@ -82,20 +82,21 @@ const rootReducer = combineReducers({
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const persistConfig = {
-  key: "root",
-  storage,
-  whitelist: ["generic", "auth"],
-};
+// const persistConfig = {
+//   key: "root",
+//   storage,
+//   whitelist: ["generic", "auth"],
+// };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = createStore(
-  persistedReducer,
+  //  persistedReducer,
+  rootReducer,
   composeEnhancers(applyMiddleware(thunk))
 );
 
-let persistor = persistStore(store);
+//let persistor = persistStore(store);
 
 //var hist = createBrowserHistory();
 
@@ -103,11 +104,11 @@ const app = (
   <CookiesProvider>
     <BrowserRouter>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <ThemeProvider theme={theme}>
-            <App />
-          </ThemeProvider>
-        </PersistGate>
+        {/* <PersistGate loading={null} persistor={persistor}> */}
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+        {/* </PersistGate> */}
       </Provider>
     </BrowserRouter>
   </CookiesProvider>

@@ -57,7 +57,6 @@ const LandingPage = (props, { ...rest }) => {
       props.onInitDatafiles();
       props.onInitLNAbsences();
       props.onInitHRAAbsences();
-
       props.onListLNAbsences();
       props.onListHRAAbsences();
     }
@@ -66,10 +65,15 @@ const LandingPage = (props, { ...rest }) => {
     return () => {};
   }, []);
 
+  // useEffect(() => {
+  //   setisNotReady(!props.ln_loaded);
+  //   return () => {};
+  // }, [props.ln_loaded]);
+
   useEffect(() => {
-    setisNotReady(!props.ln_loaded);
+    setisNotReady(props.ln_loading && props.hra_loading);
     return () => {};
-  }, [props.ln_loaded]);
+  }, [props.ln_loading, props.hra_loading]);
 
   const handleGoButton = (e) => {
     e.preventDefault();
@@ -150,6 +154,8 @@ const mapStateToProps = (state, ownProps) => {
     cookies: ownProps.cookies,
     metadata: state.generic.metadata,
     ln_loaded: state.LN_absence.loaded,
+    ln_loading: state.LN_absence.loading,
+    hra_loading: state.HRA_absence.loading,
   };
 };
 

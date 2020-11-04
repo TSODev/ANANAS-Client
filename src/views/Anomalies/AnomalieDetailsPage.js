@@ -200,34 +200,6 @@ const PeopleDetailsPage = (props) => {
                 </Button>
               </GridItem>
             </GridContainer>
-
-            <GridItem>
-              {/* <MaterialTable
-                options={{
-                  grouping: false,
-                  filtering: true,
-                  pageSize: 10,
-                  pageSizeOptions: [10, 20, 50],
-                  debounceInterval: 500,
-                  actionsColumnIndex: -1,
-                }}
-                title="Liste des Absences HRA"
-                columns={[
-                  { title: "CODE", field: "code" },
-                  { title: "DEBUT", field: "debut" },
-                  { title: "FIN", field: "fin" },
-                ]}
-                data={HRA}
-                actions={[
-                  {
-                    icon: VisibilityIcon,
-                    tooltip: "Détails",
-                    onClick: (event, rowData) =>
-                      onPeopleRowClickHandler(event, rowData),
-                  },
-                ]}
-              /> */}
-            </GridItem>
           </GridContainer>
         </div>
       </div>

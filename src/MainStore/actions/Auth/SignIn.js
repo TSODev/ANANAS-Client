@@ -51,6 +51,12 @@ export const error = (error) => {
   };
 };
 
+export const refreshMarker = () => {
+  return {
+    type: actions.MARK_REFRESH_STATE,
+  };
+};
+
 export const signIn = (email, password) => {
   return (dispatch) => {
     dispatch(signinStart());
@@ -61,8 +67,9 @@ export const signIn = (email, password) => {
     axios
       .post("/login", userInfo)
       .then((response) => {
-        dispatch(userResetMode());
+        //        dispatch(userResetMode());
         dispatch(signinSuccess(response));
+        dispatch(refreshMarker());
       })
       .catch((err) => {
         if (err.response) {

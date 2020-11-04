@@ -115,10 +115,15 @@ const AnomaliesWidget = (props, { ...rest }) => {
     return () => {};
   }, []);
 
-  // useEffect(() => {
-  //   if (props.anomalies_loaded) props.onAnomaliesList();
-  //   return () => {};
-  // }, [props.anomalies_loaded]);
+  useEffect(() => {
+    if (props.anomalies_loaded) props.onAnomaliesList();
+    return () => {};
+  }, [props.anomalies_loaded]);
+
+  useEffect(() => {
+    setfileIsLoading(props.anomalies_loading);
+    return () => {};
+  }, [props.anomalies_loading]);
 
   useEffect(() => {
     if (props.anomalies_listloaded) {

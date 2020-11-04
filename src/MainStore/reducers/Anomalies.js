@@ -102,7 +102,6 @@ const anomaliesListFail = (state, action) => {
 const anomaliescleared = (state, action) => {
   return updateObject(state, {
     anomalies: [],
-    loading: false,
     error: false,
   });
 };

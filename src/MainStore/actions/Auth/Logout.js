@@ -20,6 +20,18 @@ export const logoutFail = (error) => {
   };
 };
 
+export const initHRAAbsences = () => {
+  return {
+    type: actions.INIT_HRA_ABSENCES,
+  };
+};
+
+export const initLNAbsences = () => {
+  return {
+    type: actions.INIT_LN_ABSENCES,
+  };
+};
+
 export const error = (error) => {
   return {
     type: actions.ERROR_SHOW,
@@ -40,6 +52,8 @@ export const logOut = (token) => {
       .post("/logout", {}, logoutInfo)
       .then((response) => {
         dispatch(logoutSuccess(response.data));
+        dispatch(initHRAAbsences());
+        dispatch(initLNAbsences());
       })
       .catch((err) => {
         if (err.response) {

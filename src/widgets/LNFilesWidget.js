@@ -85,7 +85,6 @@ const LNFilesWidget = (props, { ...rest }) => {
   const [LNfileNames, setLNFileNames] = React.useState(null);
   const [LNData, setLNData] = useState(null);
 
-  const [cardRotate, setCardRotate] = React.useState("");
   const [loadedFileName, setloadedFileName] = useState("");
   const [lastLoadedDate, setlastLoadedDate] = useState(null);
 
@@ -168,8 +167,28 @@ const LNFilesWidget = (props, { ...rest }) => {
     };
   }, [props.ln_loaded]);
 
+  // useEffect(() => {
+  //   if (!props.mdLoading) {
+  //     var lastLoadedDate = "";
+  //     var fileName = "";
+  //     if (props.metadata.length > 0) {
+  //       lastLoadedDate = props.metadata
+  //         .filter((group) => group.metadata_group === "LN")
+  //         .find((key) => key.metadata_key === "lastLoaded").metadata_value;
+  //       fileName = props.metadata
+  //         .filter((group) => group.metadata_group === "LN")
+  //         .find((key) => key.metadata_key === "fileName").metadata_value;
+  //     }
+  //     setlastLoadedDate(lastLoadedDate);
+  //     setloadedFileName(fileName);
+  //   }
+  //   return () => {
+  //     //      cleanup
+  //   };
+  // }, [props.mdLoading]);
+
   useEffect(() => {
-    if (!props.mdLoading) {
+    if (props.mdLoaded) {
       var lastLoadedDate = "";
       var fileName = "";
       if (props.metadata.length > 0) {
@@ -186,7 +205,7 @@ const LNFilesWidget = (props, { ...rest }) => {
     return () => {
       //      cleanup
     };
-  }, [props.mdLoading]);
+  }, [props.mdLoaded]);
 
   return (
     <React.Fragment>
@@ -210,27 +229,32 @@ const LNFilesWidget = (props, { ...rest }) => {
               <div></div>
             )}
           </CardHeader>
+
           <CardBody className={classes.cardBodyStyle}>
-            <div>
-              {lastLoadedDate === "" ? (
-                <h3 className={classes.cardTitle}>
-                  0 <small>Fichier chargé</small>
-                </h3>
-              ) : (
-                <GridContainer
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <GridItem xs={8} sm={8} md={8} lg={8}>
-                    <h5 className={classes.cardTitle}>{loadedFileName}</h5>
-                  </GridItem>
-                  <GridItem xs={4} sm={4} md={4} lg={4}>
-                    <h5 className={classes.stats}>{lastLoadedDate}</h5>
-                  </GridItem>
-                </GridContainer>
-              )}
-            </div>
+            {props.mdLoaded ? (
+              <div>
+                {lastLoadedDate === "" ? (
+                  <h3 className={classes.cardTitle}>
+                    0 <small>Fichier chargé</small>
+                  </h3>
+                ) : (
+                  <GridContainer
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
+                  >
+                    <GridItem xs={8} sm={8} md={8} lg={8}>
+                      <h5 className={classes.cardTitle}>{loadedFileName}</h5>
+                    </GridItem>
+                    <GridItem xs={4} sm={4} md={4} lg={4}>
+                      <h5 className={classes.stats}>{lastLoadedDate}</h5>
+                    </GridItem>
+                  </GridContainer>
+                )}
+              </div>
+            ) : (
+              <div></div>
+            )}
           </CardBody>
           <CardFooter className={classes.cardFooterStyle}>
             <Muted>
@@ -361,6 +385,7 @@ const mapStateToProps = (state, ownProps) => {
     ln_loaded: state.LN_absence.loaded,
     metadata: state.generic.metadata,
     mdLoading: state.generic.loading,
+    mdLoaded: state.generic.loaded,
   };
 };
 

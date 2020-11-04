@@ -16,15 +16,15 @@ const initialState = {
     //   createdDate: new Date(),
     // },
   ],
-  for: "",
-  from: new Date(),
-  to: new Date(),
+  // for: "",
+  // from: new Date(),
+  // to: new Date(),
   loading: false,
   error: "",
   loaded: false,
   nbAbs: 0,
   fileName: "",
-  lastLoadedDate: new Date(),
+  lastLoadedDate: null,
 };
 
 const initLNAbsences = (state, action) => {
@@ -34,7 +34,7 @@ const initLNAbsences = (state, action) => {
     loaded: false,
     nbAbs: 0,
     fileName: "",
-    error: "",
+    error: null,
   });
 };
 

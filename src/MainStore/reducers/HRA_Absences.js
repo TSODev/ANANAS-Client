@@ -4,40 +4,40 @@ import { updateObject } from "../../utilities/utils";
 
 const initialState = {
   absences: [
-    {
-      absence_id: "",
-      people_id: "",
-      code: "",
-      libelle: "",
-      debut: new Date(),
-      fin: new Date(),
-      identifiant: "",
-      modele_rep_absence: "",
-      num_bulletin: "",
-      num_traitement: "",
-      partition_reglem: "",
-      position_bu: "",
-      periode_paie: "",
-      reglementation: "",
-      repertoire_absence: "",
-      source_absence: "",
-      usage_paie: "",
-      centre_cout: "",
-      matricule_GP: "",
-      abs_month: 0,
-      abs_year: 0,
-      createdDate: new Date(),
-    },
+    // {
+    //   absence_id: "",
+    //   people_id: "",
+    //   code: "",
+    //   libelle: "",
+    //   debut: new Date(),
+    //   fin: new Date(),
+    //   identifiant: "",
+    //   modele_rep_absence: "",
+    //   num_bulletin: "",
+    //   num_traitement: "",
+    //   partition_reglem: "",
+    //   position_bu: "",
+    //   periode_paie: "",
+    //   reglementation: "",
+    //   repertoire_absence: "",
+    //   source_absence: "",
+    //   usage_paie: "",
+    //   centre_cout: "",
+    //   matricule_GP: "",
+    //   abs_month: 0,
+    //   abs_year: 0,
+    //   createdDate: new Date(),
+    // },
   ],
-  for: "",
-  from: new Date(),
-  to: new Date(),
+  // for: "",
+  // from: new Date(),
+  // to: new Date(),
   loading: false,
-  error: "",
+  error: null,
   loaded: false,
   nbAbs: 0,
   fileName: "",
-  lastLoadedDate: new Date(),
+  lastLoadedDate: null,
 };
 
 const initHRAAbsences = (state, action) => {
@@ -47,7 +47,7 @@ const initHRAAbsences = (state, action) => {
     loaded: false,
     nbAbs: 0,
     fileName: "",
-    error: "",
+    error: null,
   });
 };
 
@@ -60,7 +60,7 @@ const absencesListStart = (state, action) => {
 
 const absencesListSuccess = (state, action) => {
   return updateObject(state, {
-    error: "action.error",
+    error: action.error,
     absences: action.data,
     loading: false,
   });
@@ -82,7 +82,7 @@ const absencesSaveStart = (state, action) => {
 
 const absencesSaveSuccess = (state, action) => {
   return updateObject(state, {
-    error: "action.error",
+    error: action.error,
     loading: false,
   });
 };

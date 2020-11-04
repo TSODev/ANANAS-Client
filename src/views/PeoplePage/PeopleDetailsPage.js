@@ -13,7 +13,6 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
 import Button from "components/CustomButtons/Button.js";
-import Footer from "components/Footer/Footer.js";
 
 import AnomaliesTable from "views/Anomalies/AnomaliesTable";
 import LNAbsencesTable from "views/Absence/LNAbsencesTable";
@@ -27,8 +26,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import HeaderBackAndLogout from "components/Header/HeaderBackAndLogout.js";
 
 import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import Slide from "@material-ui/core/Slide";
 
 // @material-ui/icons
@@ -72,7 +69,7 @@ const PeopleDetailsPage = (props) => {
 
   const [viewDetails, setviewDetails] = React.useState(false);
   const [id, setid] = useState();
-  const [people, setpeople] = useState({});
+  const [people, setpeople] = useState({ fullname: "" });
   const [HRA, setHRA] = useState([]);
   const [details, setdetails] = useState();
   const [hasPeople, sethasPeople] = useState(false);
@@ -98,18 +95,6 @@ const PeopleDetailsPage = (props) => {
       sethasPeople(true);
     }
   }, [props.people]);
-
-  // const onPeopleRowClickHandler = (event, rowData) => {
-  //   event.preventDefault();
-  //   //    console.log("Click on Row: ", rowData);
-  //   setdetails(rowData);
-  //   setviewDetails(true);
-  // };
-
-  // const HandleGoButton = (e) => {
-  //   e.preventDefault();
-  //   props.onPeopleAnalyse(people.people_id);
-  // };
 
   return (
     <div>
@@ -232,59 +217,6 @@ const PeopleDetailsPage = (props) => {
           </GridItem>
         </GridContainer>
       </div>
-      <Footer
-        content={
-          <div>
-            <div className={classes.left}>
-              <List className={classes.list}>
-                <ListItem className={classes.inlineBlock}>
-                  <a
-                    href="https://www.creative-tim.com/?ref=mkpr-landing"
-                    target="_blank"
-                    className={classes.block}
-                  >
-                    TSODev
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a
-                    href="https://www.creative-tim.com/presentation?ref=mkpr-landing"
-                    target="_blank"
-                    className={classes.block}
-                  >
-                    A propos
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a href="//blog.creative-tim.com/" className={classes.block}>
-                    Blog
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a
-                    href="https://www.creative-tim.com/license?ref=mkpr-landing"
-                    target="_blank"
-                    className={classes.block}
-                  >
-                    Licenses
-                  </a>
-                </ListItem>
-              </List>
-            </div>
-            <div className={classes.right}>
-              &copy; {1900 + new Date().getYear()} , par{" "}
-              {/* <Favorite className={classes.icon} /> by{" "} */}
-              <a
-                href="https://www.creative-tim.com/?ref=mkpr-landing"
-                target="_blank"
-              >
-                TSODev
-              </a>{" "}
-              pour vous simplifier la tâche.
-            </div>
-          </div>
-        }
-      />
 
       <Dialog
         classes={{
