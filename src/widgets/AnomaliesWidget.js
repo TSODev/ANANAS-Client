@@ -99,7 +99,7 @@ const AnomaliesWidget = (props, { ...rest }) => {
   const handleContinueButton = (e) => {
     e.preventDefault();
     setfileIsLoading(true);
-    props.onAnomaliesCleared();
+    //    props.onAnomaliesCleared();
     setTimeout(() => {
       props.onBulkAnalyse();
     }, 500);

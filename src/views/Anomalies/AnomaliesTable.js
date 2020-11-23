@@ -39,6 +39,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import SyncAltIcon from "@material-ui/icons/SyncAlt";
 
 import MaterialTable from "material-table";
 
@@ -142,11 +143,22 @@ const AnomaliesTable = (props) => {
   };
 
   const renderFrom = (rowData) => {
-    if (rowData.anomalie_from === "LN") {
-      return <ArrowBackIcon />;
-    } else {
-      return <ArrowForwardIcon />;
+    let arrow;
+    console.log(rowData.anomalie_from);
+    switch (rowData.anomalie_from) {
+      case "LN":
+        arrow = <ArrowBackIcon />;
+        break;
+      case "HRA":
+        arrow = <ArrowForwardIcon />;
+        break;
+      case "BOTH":
+        arrow = <SyncAltIcon />;
+        break;
+      default:
+        break;
     }
+    return arrow;
   };
 
   const renderHRAChip = (rowData) => (
