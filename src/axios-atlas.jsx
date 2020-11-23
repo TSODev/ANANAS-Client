@@ -2,10 +2,10 @@ import axios from "axios";
 
 const instance = axios.create({
   //baseURL: "https://192.168.0.159:5000/api/v1",
-  baseURL: "https://192.168.0.75:5000/api/v1",
+  //baseURL: "https://192.168.0.75:5000/api/v1",
   //baseURL: "https://box.tsodev.fr:35443/api/v1",
   //baseURL: "https://ananas-server:5000/api/v1",
-  //baseURL: "https://ec2-15-237-150-226.eu-west-3.compute.amazonaws.com/api/v1",
+  baseURL: "https://aws.tsodev.fr/api/v1",
   validateStatus: function (status) {
     return status < 400;
   },

@@ -6,11 +6,18 @@ export { logOut } from "./Auth/Logout";
 
 export { showError, closeError } from "./Error/Error";
 
-export { initMetadata, listAllMetadata, metadataSave } from "./Generic/generic";
+export {
+  initMetadata,
+  listAllMetadata,
+  metadataSave,
+  markRefreshState,
+  persistMetadata,
+} from "./Generic/generic";
 export {
   initDatafiles,
   listAllDatafile,
   deleteDatafile,
+  persistDatafiles,
 } from "./Generic/datafile";
 
 export {

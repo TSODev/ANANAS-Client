@@ -1,6 +1,7 @@
 import * as actiontypes from "../actions/actionTypes";
 
 import { updateObject } from "../../utilities/utils";
+import { persistMetadata } from "MainStore/actions/Generic/generic";
 
 const initialState = {
   refresh: true,
@@ -117,7 +118,19 @@ const deleteDataFileFail = (state, action) => {
 
 const markRefreshState = (state, action) => {
   return updateObject(state, {
-    refresh: false,
+    refresh: action.data,
+  });
+};
+
+const metadataPersist = (state, action) => {
+  return updateObject(state, {
+    metadata: action.data.metadata,
+  });
+};
+
+const datafilesPersist = (state, action) => {
+  return updateObject(state, {
+    datafiles: action.data.datafiles,
   });
 };
 
@@ -147,6 +160,10 @@ const reducer = (state = initialState, action) => {
       return deleteDataFileFail(state, action);
     case actiontypes.MARK_REFRESH_STATE:
       return markRefreshState(state, action);
+    case actiontypes.PERSIST_METADATA:
+      return metadataPersist(state, action);
+    case actiontypes.PERSIST_DATAFILE:
+      return datafilesPersist(state, action);
     default:
       return state;
   }

@@ -47,13 +47,15 @@ export const logOut = (token) => {
         "x-xsrf-token": token,
       },
     };
-    console.log(logoutInfo);
+    //    console.log(logoutInfo);
     axios
-      .post("/logout", {}, logoutInfo)
+      //      .post("/logout", {}, logoutInfo)
+      .post("/logout", {})
       .then((response) => {
         dispatch(logoutSuccess(response.data));
         dispatch(initHRAAbsences());
         dispatch(initLNAbsences());
+        sessionStorage.clear();
       })
       .catch((err) => {
         if (err.response) {

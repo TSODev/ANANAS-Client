@@ -51,9 +51,10 @@ export const error = (error) => {
   };
 };
 
-export const refreshMarker = () => {
+export const refreshMarker = (refreshState) => {
   return {
     type: actions.MARK_REFRESH_STATE,
+    data: refreshState,
   };
 };
 
@@ -69,7 +70,8 @@ export const signIn = (email, password) => {
       .then((response) => {
         //        dispatch(userResetMode());
         dispatch(signinSuccess(response));
-        dispatch(refreshMarker());
+        sessionStorage.setItem("signIn", JSON.stringify(response.data));
+        dispatch(refreshMarker(false));
       })
       .catch((err) => {
         if (err.response) {

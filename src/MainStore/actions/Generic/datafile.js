@@ -67,6 +67,7 @@ export const listAllDatafile = () => {
       })
       .then((response) => {
         dispatch(DatafileListSuccess(response.data));
+        sessionStorage.setItem("datafiles", JSON.stringify(response.data));
       })
       .catch((err) => {
         dispatch(DatafileListFail(err));
@@ -92,5 +93,18 @@ export const deleteDatafile = (id) => {
         dispatch(deleteDatafileFail(err));
         dispatch(error({ severity: "error", message: err.message }));
       });
+  };
+};
+
+export const datafilesPersist = (sessionData) => {
+  return {
+    type: actions.PERSIST_DATAFILE,
+    data: sessionData,
+  };
+};
+
+export const persistDatafiles = (sessionData) => {
+  return (dispatch) => {
+    dispatch(datafilesPersist(sessionData));
   };
 };

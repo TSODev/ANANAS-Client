@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { withCookies, Cookies } from "react-cookie";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // react components for routing our app without refresh
@@ -30,7 +31,12 @@ const HeaderBackAndLogout = (props) => {
   //   return () => {};
   // }, [props.logout_loading]);
 
-  const [xsrf, setxsrf] = useState(props.xsrf);
+  const [xsrf, setxsrf] = useState(null);
+
+  useEffect(() => {
+    setxsrf(props.cookies.get("XSRF-TOKEN"));
+    return () => {};
+  }, [props.cookies]);
 
   const easeInOutQuad = (t, b, c, d) => {
     t /= d / 2;
@@ -73,8 +79,7 @@ const HeaderBackAndLogout = (props) => {
 
   const handleLogoutButton = (e) => {
     e.preventDefault();
-    console.log(props.xsrf);
-    props.logOut(props.xsrf);
+    props.logOut(xsrf);
     props.history.push("/login-page");
   };
 
@@ -137,7 +142,7 @@ const mapStateToProps = (state, ownProps) => {
     isAuthenticated: state.auth.isAuthenticated,
     firstname: state.auth.firstname,
     lastname: state.auth.lastname,
-    xsrf: state.auth.xsrf,
+    //    xsrf: state.auth.xsrf,
     logout_loading: state.auth.loading,
   };
 };
@@ -149,5 +154,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(HeaderBackAndLogout)
+  withCookies(connect(mapStateToProps, mapDispatchToProps)(HeaderBackAndLogout))
 );

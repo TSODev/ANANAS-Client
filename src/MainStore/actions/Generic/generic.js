@@ -65,7 +65,10 @@ export const listAllMetadata = () => {
           return status < 400; // Reject only if the status code is greater than or equal to 400
         },
       })
-      .then((response) => dispatch(metadataListSuccess(response.data)))
+      .then((response) => {
+        dispatch(metadataListSuccess(response.data));
+        sessionStorage.setItem("metadata", JSON.stringify(response.data));
+      })
       .catch((err) => {
         dispatch(metadataListFail(err));
         dispatch(error({ severity: "error", message: err.message }));
@@ -90,14 +93,28 @@ export const metadataSave = (md) => {
   };
 };
 
-export const setRefreshStateMark = () => {
+export const setRefreshStateMark = (refreshState) => {
   return {
     type: actions.MARK_REFRESH_STATE,
+    data: refreshState,
   };
 };
 
-export const markRefreshState = () => {
+export const markRefreshState = (refreshState) => {
   return (dispatch) => {
-    dispatch(setRefreshStateMark());
+    dispatch(setRefreshStateMark(refreshState));
+  };
+};
+
+export const metadataPersist = (sessionData) => {
+  return {
+    type: actions.PERSIST_METADATA,
+    data: sessionData,
+  };
+};
+
+export const persistMetadata = (sessionData) => {
+  return (dispatch) => {
+    dispatch(metadataPersist(sessionData));
   };
 };

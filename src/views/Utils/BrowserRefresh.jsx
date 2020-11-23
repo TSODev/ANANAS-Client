@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { withCookies, Cookies } from "react-cookie";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -29,11 +30,30 @@ export const BrowserRefresh = (props) => {
 
   const classes = useStyles();
 
+  const [xsrf, setxsrf] = useState(null);
+
   useEffect(() => {
-    if (props.location.pathname !== "/login-page") {
-      sethasbeenRefreshed(props.refresh);
-      //      props.logOut(props.xsrf);           // xsrf redux state has been reset due to refresh !
-      props.history.push("/login-page");
+    setxsrf(props.cookies.get("XSRF-TOKEN"));
+    return () => {};
+  }, [props.cookies]);
+
+  //TODO : Replace direct logout with restoring session Data and continue...
+
+  useEffect(() => {
+    if (props.refresh) {
+      if (
+        props.location.pathname !== "/login-page" &&
+        props.location.pathname !== "/"
+      ) {
+        sethasbeenRefreshed(props.refresh);
+        //        props.persistMetadata(JSON.parse(sessionStorage.getItem("metadata")));
+        //        props.persistDatafiles(JSON.parse(sessionStorage.getItem("datafiles")));
+        props.logOut(xsrf);
+        props.history.push("/login-page");
+      } else {
+        props.markRefreshState(false);
+        sethasbeenRefreshed(false);
+      }
     }
     return () => {};
   }, [props.refresh]);
@@ -77,7 +97,7 @@ export const BrowserRefresh = (props) => {
         >
           <p>
             Vous avez rafraichi la page! Il est impossible de restaurer les
-            données dans l'état précédent... Veuillez vous reconnecter.
+            données dans l'état précédent... Vous devez vous reconnecter.
           </p>
         </DialogContent>
         <DialogActions className={classes.modalFooter}>
@@ -97,12 +117,16 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onListMetadata: () => dispatch(actions.listAllMetadata()),
-    onListDatafiles: () => dispatch(actions.listAllDatafile()),
     logOut: (token) => dispatch(actions.logOut(token)),
+    markRefreshState: (refreshState) =>
+      dispatch(actions.markRefreshState(refreshState)),
+    persistMetadata: (sessionData) =>
+      dispatch(actions.persistMetadata(sessionData)),
+    persistDatafiles: (sessionData) =>
+      dispatch(actions.persistDatafiles(sessionData)),
   };
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(BrowserRefresh)
+  withCookies(connect(mapStateToProps, mapDispatchToProps)(BrowserRefresh))
 );
