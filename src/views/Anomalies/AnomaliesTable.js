@@ -144,7 +144,7 @@ const AnomaliesTable = (props) => {
 
   const renderFrom = (rowData) => {
     let arrow;
-    console.log(rowData.anomalie_from);
+    //    console.log(rowData.anomalie_from);
     switch (rowData.anomalie_from) {
       case "LN":
         arrow = <ArrowBackIcon />;

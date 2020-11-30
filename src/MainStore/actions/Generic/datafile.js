@@ -87,7 +87,7 @@ export const deleteDatafile = (id) => {
       })
       .then((response) => {
         dispatch(deleteDatafileSuccess(response.data));
-        this.listAllDatafile();
+        //        this.listAllDatafile();
       })
       .catch((err) => {
         dispatch(deleteDatafileFail(err));
